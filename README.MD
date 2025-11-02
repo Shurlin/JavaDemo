@@ -13,3 +13,5 @@ https://github.com/Shurlin/JavaDemo.git
 ## 操作指南
 1. 操作前先拉取(pull)，同步别人的代码
 2. 完成自己的部分后，提交并推送(commit and push)
+3. Java源代码路径为 JavaDemo\app\src\main\java
+4. 资源文件路径为 JavaDemo\app\src\main\res
