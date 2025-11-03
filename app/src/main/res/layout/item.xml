@@ -7,6 +7,7 @@
     android:layout_margin="8dp"
     android:clickable="true"
     android:focusable="true"
+    app:cardBackgroundColor="#ccc"
     android:foreground="?attr/selectableItemBackground"
     android:padding="12dp"
     app:cardCornerRadius="12dp"
@@ -15,6 +16,7 @@
 
     <LinearLayout
         android:orientation="horizontal"
+        android:layout_marginStart="8dp"
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:gravity="center_vertical">
@@ -28,7 +30,7 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="8dp"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content">
@@ -39,7 +41,8 @@
                 android:layout_height="wrap_content"
                 android:text="栏目标题"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textColor="#666"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/desc"
@@ -51,12 +54,6 @@
                 android:textColor="#666" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/chevron"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/feedback"
-            android:contentDescription="更多"/>
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

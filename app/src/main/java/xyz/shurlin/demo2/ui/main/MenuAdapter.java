@@ -12,20 +12,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import xyz.shurlin.demo2.data.MenuItem;
+import xyz.shurlin.demo2.data.ToolMenuItem;
 import xyz.shurlin.demo2.R;
 
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.VH> {
 
     public interface OnItemClickListener {
-        void onItemClick(MenuItem item);
+        void onItemClick(ToolMenuItem item);
     }
 
-    private final List<MenuItem> items;
+    private final List<ToolMenuItem> items;
     private final OnItemClickListener listener;
     private final Context context;
 
-    public MenuAdapter(Context context, List<MenuItem> items, OnItemClickListener listener) {
+    public MenuAdapter(Context context, List<ToolMenuItem> items, OnItemClickListener listener) {
         this.context = context;
         this.items = items;
         this.listener = listener;
@@ -40,7 +40,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.VH> {
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
-        final MenuItem item = items.get(position);
+        final ToolMenuItem item = items.get(position);
         holder.title.setText(item.getTitle());
         holder.desc.setText(item.getDesc());
         holder.icon.setImageResource(item.getIconRes());

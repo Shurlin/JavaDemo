@@ -1,57 +1,55 @@
 package xyz.shurlin.demo2.ui.main;
 
-import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
-import xyz.shurlin.demo2.data.MenuItem;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.annotation.Nullable;
+
 import xyz.shurlin.demo2.R;
-import xyz.shurlin.demo2.ui.list.TestActivity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recycler;
-    private MenuAdapter adapter;
-    private List<MenuItem> menuList = new ArrayList<>();
+
+    private Toolbar toolbar;
+    private BottomNavigationView bottomNav;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recycler = findViewById(R.id.recyclerTools);
 
-        // 2 列网格
-        GridLayoutManager glm = new GridLayoutManager(this, 2);
-        recycler.setLayoutManager(glm);
+        //底部导航栏
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        bottomNav.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
 
-        // 准备数据（新增栏目只在这里添加）
-        prepareMenu();
-
-        adapter = new MenuAdapter(this, menuList, item -> {
-            // 点击跳转
-            Class<?> cls = item.getTarget();
-            if (cls != null) {
-                Intent it = new Intent(MainActivity.this, cls);
-                // 可额外传递参数
-                it.putExtra("menu_id", item.getId());
-                startActivity(it);
+            if (id == R.id.nav_home) {
+                loadFragment(new HomeFragment());
+                return true;
             }
+            if (id == R.id.nav_user) {
+                loadFragment(new UserFragment());
+                return true;
+            }
+            return false;
         });
 
-        recycler.setAdapter(adapter);
+        if (savedInstanceState == null) {
+            bottomNav.setSelectedItemId(R.id.nav_home);
+        }
+
     }
 
-    private void prepareMenu() {
-        menuList.clear();
-        // 示例栏目
-        menuList.add(new MenuItem("test", "测试", "test", R.drawable.feedback, TestActivity.class));
+    private void loadFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
     }
 }
