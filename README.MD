@@ -4,7 +4,8 @@
 
 ## Git地址
 ```
-https://github.com/Shurlin/JavaDemo.git
+app代码：https://github.com/Shurlin/JavaDemo
+后端服务器代码：https://github.com/Shurlin/SprigServer
 ```
 
 ## 参考网址
