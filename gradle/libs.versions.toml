@@ -10,6 +10,12 @@ constraintlayout = "2.1.4"
 swiperefreshlayout = "1.1.0"
 cardview = "1.0.0"
 fragment = "1.6.0"
+retrofit = "2.9.0"
+gson = "2.10.1"
+okhttp = "4.11.0"
+annotation = "1.9.1"
+lifecycleLivedataKtx = "2.9.4"
+lifecycleViewmodelKtx = "2.9.4"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -22,6 +28,13 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
 cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
 fragment = { module = "androidx.fragment:fragment", version.ref = "fragment"}
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
+lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
+lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

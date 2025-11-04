@@ -4,13 +4,59 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.UserFragment"
-    android:padding="16dp">
+    android:layout_marginTop="?attr/actionBarSize">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/swipe">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+    <!-- 用户名 -->
     <TextView
-        android:id="@+id/tv_profile"
+        android:id="@+id/tvDisplayName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This is my"
-        android:textColor="@color/black"/>
+        android:text="点我登录"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:visibility="visible"/>
+
+    <!-- 邮箱 -->
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="16sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="24dp" />
+
+    <!-- 分割线 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DDDDDD"
+        android:layout_marginBottom="24dp" />
+
+    <!-- 功能按钮，例如登出 -->
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="登出"
+        android:textColor="@android:color/white"
+        android:background="#f00"
+        android:visibility="visible"/>
+
+        </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </FrameLayout>
