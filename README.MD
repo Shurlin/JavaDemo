@@ -3,10 +3,9 @@
 **成员：GarayShurlin、1oty、DeachBeacon**
 
 ## Git地址
-```
 app代码：https://github.com/Shurlin/JavaDemo
 后端服务器代码：https://github.com/Shurlin/SprigServer
-```
+
 
 ## 参考网址
 [Android Studio 官方文档](https://developer.android.com/studio/intro?hl=zh-cn)
