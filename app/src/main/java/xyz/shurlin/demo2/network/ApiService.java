@@ -14,4 +14,11 @@ public interface ApiService {
             "Content-Type: application/json"
     })
     Call<LoginResponse> login(@Body LoginRequest request);
+
+    @POST("/users/register")
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    Call<RegisterResponse> register(@Body RegisterRequest request);
 }

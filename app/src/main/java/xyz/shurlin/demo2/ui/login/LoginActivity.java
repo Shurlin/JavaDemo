@@ -9,6 +9,7 @@ import android.widget.*;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,8 +23,9 @@ import xyz.shurlin.demo2.ui.main.MainActivity;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText etUsername, etPassword;
-    private Button btnLogin;
+    private Button btnLogin, btnRegister;
     private ProgressBar progress;
+    private TextView tips;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,9 +35,20 @@ public class LoginActivity extends AppCompatActivity {
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
+        btnRegister = findViewById(R.id.btnRegister);
         progress = findViewById(R.id.progress);
+        tips = findViewById(R.id.tips);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_login);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         btnLogin.setOnClickListener(v -> doLogin());
+
+        btnRegister.setOnClickListener(view -> {
+            Intent it = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(it);
+        });
     }
 
     private void doLogin() {
@@ -43,7 +56,9 @@ public class LoginActivity extends AppCompatActivity {
         String password = etPassword.getText().toString();
 
         if (username.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "请输入用户名和密码", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "请输入用户名和密码", Toast.LENGTH_SHORT).show();
+            tips.setText("请输入用户名和密码");
+            tips.setVisibility(View.VISIBLE);
             return;
         }
 
@@ -71,11 +86,14 @@ public class LoginActivity extends AppCompatActivity {
                     String msg = "登录失败";
                     if (response.errorBody() != null) {
                         try {
-                            msg = response.errorBody().string();
+                            msg = response.errorBody().string().split("\"")[3];
+//                            Log.v("a", msg);
                         } catch (Exception ignored) {
                         }
                     }
-                    Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_LONG).show();
+                    tips.setText(msg);
+                    tips.setVisibility(View.VISIBLE);
+//                    Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -83,7 +101,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 progress.setVisibility(View.GONE);
                 btnLogin.setEnabled(true);
-                Toast.makeText(LoginActivity.this, "网络错误: " + t.getMessage(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(LoginActivity.this, "网络错误: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                tips.setText("网络错误: " + t.getMessage());
+                tips.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -102,5 +122,11 @@ public class LoginActivity extends AppCompatActivity {
                 .putString("token", response.getToken())
                 .apply();
         Log.v("a",response.getEmail());
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

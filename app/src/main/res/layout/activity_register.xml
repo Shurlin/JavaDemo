@@ -2,19 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/login_root"
+    android:id="@+id/register_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.login.LoginActivity">
+    tools:context=".ui.login.RegisterActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_login"
+        android:id="@+id/toolbar_register"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:gravity="center"
-        app:title="登录"
+        app:title="注册"
         app:titleTextColor="@android:color/white" />
 
     <LinearLayout
@@ -34,11 +34,38 @@
             android:padding="12dp" />
 
         <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="24dp"
+            android:hint="邮箱"
+            android:inputType="text"
+            android:padding="12dp" />
+
+        <EditText
+            android:id="@+id/etDisplayName"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="24dp"
+            android:hint="昵称"
+            android:inputType="text"
+            android:padding="12dp" />
+
+        <EditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="24dp"
             android:hint="密码"
+            android:inputType="textPassword"
+            android:padding="12dp" />
+
+        <EditText
+            android:id="@+id/etPasswordConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="24dp"
+            android:hint="确认密码"
             android:inputType="textPassword"
             android:padding="12dp" />
 
@@ -52,18 +79,11 @@
             android:visibility="invisible" />
 
         <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="18dp"
-            android:text="登录" />
-
-        <Button
             android:id="@+id/btnRegister"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="18dp"
-            android:text="注册账号" />
+            android:text="注册" />
 
         <ProgressBar
             android:id="@+id/progress"
@@ -74,6 +94,4 @@
             android:visibility="gone"
             android:layout_gravity="center"/>
     </LinearLayout>
-
-
 </LinearLayout>
