@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import java.util.List;
 import xyz.shurlin.demo2.R;
 import xyz.shurlin.demo2.data.ToolMenuItem;
 import xyz.shurlin.demo2.ui.list.TestActivity;
+import xyz.shurlin.demo2.ui.list.WallActivity;
 
 public class HomeFragment extends Fragment {
 
@@ -30,6 +32,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
 
         RecyclerView recycler = view.findViewById(R.id.recyclerTools);
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
@@ -59,5 +62,6 @@ public class HomeFragment extends Fragment {
         menuList.clear();
         // 各个栏目
         menuList.add(new ToolMenuItem("item1", "cdc", "进来帮cd来c", R.drawable.feedback, TestActivity.class));
+        menuList.add(new ToolMenuItem("item2", "表白墙", "cd的表白墙", R.drawable.user, WallActivity.class));
     }
 }

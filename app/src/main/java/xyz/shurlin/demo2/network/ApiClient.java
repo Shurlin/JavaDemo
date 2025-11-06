@@ -1,5 +1,7 @@
 package xyz.shurlin.demo2.network;
 
+import java.util.concurrent.TimeUnit;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import okhttp3.OkHttpClient;
@@ -11,17 +13,31 @@ public class ApiClient {
 
     public static ApiService getApiService() {
         if (apiService == null) {
-            OkHttpClient client = new OkHttpClient.Builder()
+            OkHttpClient baseClient = new OkHttpClient.Builder()
                     .build();
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
-                    .client(client)
+                    .client(baseClient)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
             apiService = retrofit.create(ApiService.class);
         }
         return apiService;
+    }
+
+    public static PingService getPingService() {
+        OkHttpClient pingClient = new OkHttpClient.Builder()
+                .callTimeout(3, TimeUnit.SECONDS)
+                .build();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(pingClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        return retrofit.create(PingService.class);
     }
 }

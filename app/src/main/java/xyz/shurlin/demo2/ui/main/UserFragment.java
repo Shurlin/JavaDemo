@@ -36,8 +36,8 @@ public class UserFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), res ->{
-            if (res.getResultCode() == RESULT_OK){
+        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), res -> {
+            if (res.getResultCode() == RESULT_OK) {
                 updateDisplay();
             }
         });
@@ -53,17 +53,11 @@ public class UserFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipe);
         tvDisplayName = view.findViewById(R.id.tvDisplayName);
         tvEmail = view.findViewById(R.id.tvEmail);
         btnLogout = view.findViewById(R.id.btnLogout);
 
         updateDisplay();
-
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            updateDisplay();
-            swipeRefreshLayout.setRefreshing(false);
-        });
 
         tvDisplayName.setOnClickListener((e) -> {
             if (!login) {
@@ -83,7 +77,7 @@ public class UserFragment extends Fragment {
         });
     }
 
-    private void updateDisplay() {
+    void updateDisplay() {
         SharedPreferences sp = requireContext().getSharedPreferences("profile", Context.MODE_PRIVATE);
         String displayName = sp.getString("displayName", null);
         String email = sp.getString("email", null);

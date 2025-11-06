@@ -42,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         etUsername = findViewById(R.id.etUsername);
+
         etEmail = findViewById(R.id.etEmail);
         etDisplayName = findViewById(R.id.etDisplayName);
         etPassword = findViewById(R.id.etPassword);
@@ -74,6 +75,11 @@ public class RegisterActivity extends AppCompatActivity {
             tips.setVisibility(View.VISIBLE);
             return;
         }
+        if (!email.contains("@") && !email.split("@")[1].contains(".")) {
+            tips.setText("请输入正确的邮箱格式");
+            tips.setVisibility(View.VISIBLE);
+            return;
+        }
         if (displayName.isEmpty()) {
             tips.setText("请输入昵称");
             tips.setVisibility(View.VISIBLE);
@@ -81,6 +87,11 @@ public class RegisterActivity extends AppCompatActivity {
         }
         if (password.isEmpty()) {
             tips.setText("请输入密码");
+            tips.setVisibility(View.VISIBLE);
+            return;
+        }
+        if (password.length() < 8 || password.length() > 16) {
+            tips.setText("请输入8-16位的密码");
             tips.setVisibility(View.VISIBLE);
             return;
         }
