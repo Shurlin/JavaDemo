@@ -21,6 +21,7 @@ import java.util.List;
 import xyz.shurlin.demo2.R;
 import xyz.shurlin.demo2.data.ToolMenuItem;
 import xyz.shurlin.demo2.ui.list.DarkReaderActivity;
+import xyz.shurlin.demo2.ui.list.DigitalLogic.RCA_Activity;
 import xyz.shurlin.demo2.ui.list.LouderActivity;
 import xyz.shurlin.demo2.ui.list.TestActivity;
 import xyz.shurlin.demo2.ui.list.WallActivity;
@@ -69,5 +70,6 @@ public class HomeFragment extends Fragment {
         menuList.add(new ToolMenuItem("item3", "小吃街", "小吃街导航与评论", R.drawable.lollipop, SnackStreetActivity.class));
         menuList.add(new ToolMenuItem("item4", "看看谁更吵", "分贝测试器——klf不要再吵了", R.drawable.speak, LouderActivity.class));
         menuList.add(new ToolMenuItem("item5", "暗黑阅读器", "手指不放在屏幕上屏幕就会变黑", R.drawable.book1, DarkReaderActivity.class));
+        menuList.add(new ToolMenuItem("item6", "DL", "DL", R.drawable.book1, RCA_Activity.class));
     }
 }

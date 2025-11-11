@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.list.DigitalLogic.RCA_Activity">
+
+<!--    &lt;!&ndash; 居中显示的图片 &ndash;&gt;-->
+<!--    <ImageView-->
+<!--        android:id="@+id/image_view"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:src="@drawable"-->
+<!--        app:layout_constraintHorizontal_centerOf="parent"-->
+<!--        app:layout_constraintVertical_centerOf="parent"-->
+<!--        app:layout_constraintDimensionRatio="1:1" &lt;!&ndash; 保持正方形比例 &ndash;&gt;-->
+<!--    android:scaleType="centerInside" &lt;!&ndash; 保持图片完整显示 &ndash;&gt;-->
+<!--    android:layout_margin="20dp" &lt;!&ndash; 添加边距避免紧贴边缘 &ndash;&gt;-->
+<!--    app:layout_constraintStart_toStartOf="parent"-->
+<!--    app:layout_constraintEnd_toEndOf="parent"/>-->
+
+<!--    &lt;!&ndash; 右下角的"下一页"按钮 &ndash;&gt;-->
+<!--    <Button-->
+<!--        android:id="@+id/next_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="bottom|right"-->
+<!--        android:backgroundTint=""-->
+<!--        android:text="下一页"-->
+<!--        tools:layout_editor_absoluteX="304dp"-->
+<!--        tools:layout_editor_absoluteY="667dp" /> &lt;!&ndash; 按钮背景颜色 &ndash;&gt;-->
+<!--    android:padding="16dp" &lt;!&ndash; 按钮内边距 &ndash;&gt;-->
+<!--    android:layout_margin="20dp" &lt;!&ndash; 按钮与边缘的间距 &ndash;&gt;-->
+<!--    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--    app:layout_constraintRight_toRightOf="parent"/>-->
+
+    <!-- 居中的图片 -->
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_test"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:title="DL"
+        app:titleTextColor="@android:color/white"
+        android:gravity="center"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.489"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="下一页"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
+
+    <Button
+        android:id="@+id/prevButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="上一页"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.643"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

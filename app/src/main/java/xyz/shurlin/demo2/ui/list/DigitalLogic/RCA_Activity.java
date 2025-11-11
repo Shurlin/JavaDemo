@@ -1,0 +1,97 @@
+package xyz.shurlin.demo2.ui.list.DigitalLogic;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+import xyz.shurlin.demo2.R;
+
+public class RCA_Activity extends AppCompatActivity {
+    private ImageView imageView;
+    private Button prevButton;  // 新增：上一页按钮
+    private Button nextButton;
+    private int currentIndex = 0;
+
+    // 图片资源ID数组
+    private int[] imageResources = {
+            R.drawable.rca1,
+            R.drawable.rca2,
+            R.drawable.rca3,
+            // 添加更多图片...
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_rca);
+
+        // 初始化视图
+        imageView = findViewById(R.id.imageView);
+        prevButton = findViewById(R.id.prevButton);  // 新增：初始化上一页按钮
+        nextButton = findViewById(R.id.nextButton);
+
+        // 设置初始图片
+        updateImage();
+
+        // 设置按钮点击事件
+        prevButton.setOnClickListener(v -> showPrevImage());  // 新增：上一页点击事件
+        nextButton.setOnClickListener(v -> showNextImage());
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+    }
+
+    private void updateImage() {
+        // 设置当前图片
+        imageView.setImageResource(imageResources[currentIndex]);
+
+        // 更新按钮状态
+        updateButtonStates();
+    }
+
+    // 新增：统一更新按钮状态的方法
+    private void updateButtonStates() {
+        // 如果是第一张图片，禁用"上一页"按钮
+        if (currentIndex == 0) {
+            prevButton.setEnabled(false);
+            prevButton.setAlpha(0.5f);
+        } else {
+            prevButton.setEnabled(true);
+            prevButton.setAlpha(1.0f);
+        }
+
+        // 如果是最后一张图片，禁用"下一页"按钮
+        if (currentIndex == imageResources.length - 1) {
+            nextButton.setEnabled(false);
+            nextButton.setAlpha(0.5f);
+        } else {
+            nextButton.setEnabled(true);
+            nextButton.setAlpha(1.0f);
+        }
+    }
+
+    private void showNextImage() {
+        if (currentIndex < imageResources.length - 1) {
+            currentIndex++;
+            updateImage();
+        }
+    }
+
+    // 新增：显示上一张图片
+    private void showPrevImage() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateImage();
+        }
+    }
+}
