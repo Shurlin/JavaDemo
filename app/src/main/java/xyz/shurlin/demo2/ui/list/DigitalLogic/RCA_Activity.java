@@ -34,15 +34,15 @@ public class RCA_Activity extends AppCompatActivity {
 
         // 初始化视图
         imageView = findViewById(R.id.imageView);
-        prevButton = findViewById(R.id.prevButton);  // 初始按钮
+        prevButton = findViewById(R.id.prevButton);                  // 初始按钮
         nextButton = findViewById(R.id.nextButton);
 
         // 设置初始图片
         updateImage();
 
         // 设置按钮点击事件
-        prevButton.setOnClickListener(v -> showPrevImage());  // 点击上一页
-        nextButton.setOnClickListener(v -> showNextImage());  // 点击下一页
+        prevButton.setOnClickListener(v -> showPrevImage());    // 点击上一页
+        nextButton.setOnClickListener(v -> showNextImage());    // 点击下一页
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -52,17 +52,13 @@ public class RCA_Activity extends AppCompatActivity {
     }
 
     private void updateImage() {
-        // 设置当前图片
-        imageView.setImageResource(imageResources[currentIndex]);
-
-        // 更新按钮状态
-        updateButtonStates();
+        imageView.setImageResource(imageResources[currentIndex]);   // 设置当前图片
+        updateButtonStates();                                       // 更新按钮状态
     }
 
-    // 新增：统一更新按钮状态的方法
+    // 更新按钮状态的方法
     private void updateButtonStates() {
-        // 如果是第一张图片，禁用"上一页"按钮
-        if (currentIndex == 0) {
+        if (currentIndex == 0) {                            // 如果是第一张图片，禁用"上一页"按钮
             prevButton.setEnabled(false);
             prevButton.setAlpha(0.5f);
         } else {
@@ -70,8 +66,7 @@ public class RCA_Activity extends AppCompatActivity {
             prevButton.setAlpha(1.0f);
         }
 
-        // 如果是最后一张图片，禁用"下一页"按钮
-        if (currentIndex == imageResources.length - 1) {
+        if (currentIndex == imageResources.length - 1) {    // 如果是最后一张图片，禁用"下一页"按钮
             nextButton.setEnabled(false);
             nextButton.setAlpha(0.5f);
         } else {
@@ -80,6 +75,7 @@ public class RCA_Activity extends AppCompatActivity {
         }
     }
 
+    // 显示下一张图片
     private void showNextImage() {
         if (currentIndex < imageResources.length - 1) {
             currentIndex++;
@@ -87,7 +83,7 @@ public class RCA_Activity extends AppCompatActivity {
         }
     }
 
-    // 新增：显示上一张图片
+    // 显示上一张图片
     private void showPrevImage() {
         if (currentIndex > 0) {
             currentIndex--;
