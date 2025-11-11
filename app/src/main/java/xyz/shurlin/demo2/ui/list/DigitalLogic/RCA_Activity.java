@@ -14,8 +14,8 @@ import xyz.shurlin.demo2.R;
 
 public class RCA_Activity extends AppCompatActivity {
     private ImageView imageView;
-    private Button prevButton;  // 新增：上一页按钮
-    private Button nextButton;
+    private Button prevButton;  // 上一页按钮
+    private Button nextButton;  // 下一页按钮
     private int currentIndex = 0;
 
     // 图片资源ID数组
@@ -23,7 +23,7 @@ public class RCA_Activity extends AppCompatActivity {
             R.drawable.rca1,
             R.drawable.rca2,
             R.drawable.rca3,
-            // 添加更多图片...
+            // add more png
     };
 
     @Override
@@ -34,15 +34,15 @@ public class RCA_Activity extends AppCompatActivity {
 
         // 初始化视图
         imageView = findViewById(R.id.imageView);
-        prevButton = findViewById(R.id.prevButton);  // 新增：初始化上一页按钮
+        prevButton = findViewById(R.id.prevButton);  // 初始按钮
         nextButton = findViewById(R.id.nextButton);
 
         // 设置初始图片
         updateImage();
 
         // 设置按钮点击事件
-        prevButton.setOnClickListener(v -> showPrevImage());  // 新增：上一页点击事件
-        nextButton.setOnClickListener(v -> showNextImage());
+        prevButton.setOnClickListener(v -> showPrevImage());  // 点击上一页
+        nextButton.setOnClickListener(v -> showNextImage());  // 点击下一页
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
