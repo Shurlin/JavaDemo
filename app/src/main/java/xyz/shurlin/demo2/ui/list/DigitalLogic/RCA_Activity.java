@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -31,6 +32,11 @@ public class RCA_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_rca);
+
+        // 导航栏注册
+        Toolbar toolbar = findViewById(R.id.toolbar_rca);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // 初始化视图
         imageView = findViewById(R.id.imageView);
@@ -89,5 +95,11 @@ public class RCA_Activity extends AppCompatActivity {
             currentIndex--;
             updateImage();
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

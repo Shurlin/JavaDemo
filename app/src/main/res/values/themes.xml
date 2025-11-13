@@ -4,5 +4,9 @@
         <item name="colorOnPrimarySurface">#333</item>
     </style>
 
-    <style name="Theme.Demo2" parent="Base.Theme.Demo2" />
+    <style name="Theme.Demo2" parent="Base.Theme.Demo2" >
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+
+
 </resources>
