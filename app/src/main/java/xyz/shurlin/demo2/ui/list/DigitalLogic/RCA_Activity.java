@@ -24,6 +24,11 @@ public class RCA_Activity extends AppCompatActivity {
             R.drawable.rca1,
             R.drawable.rca2,
             R.drawable.rca3,
+            R.drawable.rca4,
+            R.drawable.rca5,
+            R.drawable.rca6,
+            R.drawable.rca7,
+            R.drawable.rca8,
             // add more png
     };
 
