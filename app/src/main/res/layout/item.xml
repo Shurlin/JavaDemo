@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:text="栏目标题"
                 android:textSize="16sp"
-                android:textColor="#666"
+                android:textColor="?attr/colorPrimary"
                 android:textStyle="bold"/>
 
             <TextView
