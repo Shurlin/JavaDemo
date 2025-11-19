@@ -83,9 +83,10 @@ public class EatShitActivity extends AppCompatActivity {
         items.add(new CanteenItem("曙光-牛肉饭", pref.charAt(i++) == '*'));
         items.add(new CanteenItem("曙光-西餐", pref.charAt(i++) == '*'));
         items.add(new CanteenItem("袁庚-猪肚鸡", pref.charAt(i++) == '*'));
-        items.add(new CanteenItem("袁庚-拉面", pref.charAt(i++) == '*'));
         items.add(new CanteenItem("袁庚-唐厨一号小炒", pref.charAt(i++) == '*'));
         items.add(new CanteenItem("先行-东北菜/湘菜", pref.charAt(i++) == '*'));
+        items.add(new CanteenItem("外面-拉面", pref.charAt(i++) == '*'));
+        items.add(new CanteenItem("外面-外卖", pref.charAt(i++) == '*'));
         return items;
     }
 
