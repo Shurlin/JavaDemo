@@ -68,7 +68,7 @@ public class EatShitActivity extends AppCompatActivity {
     }
 
     private static ArrayList<CanteenItem> createItems(SharedPreferences sp){
-        int size = 14, i=0;
+        int size = 15, i=0;
         String pref = sp.getString("pref", "*".repeat(size));
 
         ArrayList<CanteenItem> items = new ArrayList<>();
