@@ -56,10 +56,10 @@
             android:name=".ui.list.TestActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.main.SplashActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.main.SplashActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,10 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/rootImageShow"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.list.ImageShowActivity">
+    tools:context=".ui.list.ImageShowActivity"
+    android:fitsSystemWindows="false">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/image_xk"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        tools:src="@tools:sample/backgrounds/scenic"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="fitCenter"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnFindImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/feedback"
+        app:layout_anchor="@id/image_xk"
+        app:layout_anchorGravity="bottom|end"
+        android:layout_margin="24dp"
+        android:backgroundTint="#ddd"
+        app:tint="?attr/colorPrimary"
+        />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

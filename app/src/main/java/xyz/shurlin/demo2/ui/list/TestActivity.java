@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import java.util.Date;
 import java.util.Random;
 
 import xyz.shurlin.demo2.R;
+import xyz.shurlin.demo2.utils.Utils;
 
 public class TestActivity extends AppCompatActivity {
 
@@ -54,6 +56,9 @@ public class TestActivity extends AppCompatActivity {
             sp.edit().putInt("time", time).apply();
             textViewSum.setText(String.format("cd一共c了%d分钟", time));
             textViewEvery.setText(String.format("%s\ncd又去图书馆c了%d分钟；%s", textViewEvery.getText(), ctime, now.format(formatter)));
+
+            //TODO
+//            Toast.makeText(TestActivity.this, Utils.getLocalIPv4(), Toast.LENGTH_SHORT).show();
         });
 
 

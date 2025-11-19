@@ -3,14 +3,10 @@ package xyz.shurlin.demo2.ui.list.wall;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,6 +28,7 @@ import xyz.shurlin.demo2.data.network.WallCreateResponse;
 import xyz.shurlin.demo2.data.network.WallFetchResponse;
 import xyz.shurlin.demo2.network.ApiClient;
 import xyz.shurlin.demo2.network.ApiService;
+import xyz.shurlin.demo2.utils.Utils;
 
 public class WallActivity extends AppCompatActivity {
 
@@ -71,7 +68,7 @@ public class WallActivity extends AppCompatActivity {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView rv, int dx, int dy) {
-                if(!isRequestRunning && !isLastPage) {
+                if (!isRequestRunning && !isLastPage) {
                     LinearLayoutManager lm = (LinearLayoutManager) rv.getLayoutManager();
                     if (lm != null && lm.findLastVisibleItemPosition() >= adapter.getItemCount() - 2) {
                         loadMore();
@@ -86,7 +83,7 @@ public class WallActivity extends AppCompatActivity {
     }
 
     private void refreshData() {
-        if(isRequestRunning) return;
+        if (isRequestRunning) return;
         isRequestRunning = true;
         isLastPage = false;
         currentPage = 0;
@@ -122,7 +119,7 @@ public class WallActivity extends AppCompatActivity {
         isRequestRunning = true;
 
         final int nextPage = currentPage + 1;
-        Call<PageResponse<WallFetchResponse>>  call = api.list(currentPage, pageSize);
+        Call<PageResponse<WallFetchResponse>> call = api.list(currentPage, pageSize);
         call.enqueue(new Callback<PageResponse<WallFetchResponse>>() {
             @Override
             public void onResponse(Call<PageResponse<WallFetchResponse>> call, Response<PageResponse<WallFetchResponse>> response) {
@@ -136,7 +133,7 @@ public class WallActivity extends AppCompatActivity {
                             isLastPage = true;
                         }
                     } else {
-                        isLastPage=true;
+                        isLastPage = true;
                     }
                 }
             }
@@ -164,7 +161,7 @@ public class WallActivity extends AppCompatActivity {
                 Toast.makeText(this, "标题不能为空", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (title.length()>16) {
+            if (title.length() > 16) {
                 Toast.makeText(this, "标题不能超过16个字", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -174,17 +171,10 @@ public class WallActivity extends AppCompatActivity {
             }
             SharedPreferences sp = getSharedPreferences("profile", Context.MODE_PRIVATE);
             String username = sp.getString("username", null);
-            if(username == null){ //TODO
-                WifiManager manager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-                int ip = manager.getConnectionInfo().getIpAddress();
-                username = String.format("%d.%d.%d.%d",
-                        (ip & 0xff),
-                        (ip >> 8 & 0xff),
-                        (ip >> 16 & 0xff),
-                        (ip >> 24 & 0xff));
-
+            if (username == null) {
+                username = Utils.getLocalIPv4();
             }
-            Log.d("a", title+content);
+
 
             WallCreateRequest req = new WallCreateRequest(title, content, username);
             Call<WallCreateResponse> call = api.create(req);
@@ -220,4 +210,3 @@ public class WallActivity extends AppCompatActivity {
     }
 }
 
-// 刷新逻辑 提交 ui 校卡
