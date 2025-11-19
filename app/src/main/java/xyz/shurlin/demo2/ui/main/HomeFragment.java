@@ -23,6 +23,7 @@ import xyz.shurlin.demo2.ui.list.EatShitActivity;
 import xyz.shurlin.demo2.ui.list.GuideActivity;
 import xyz.shurlin.demo2.ui.list.ImageShowActivity;
 import xyz.shurlin.demo2.ui.list.LouderActivity;
+import xyz.shurlin.demo2.ui.list.SpeedTestActivity;
 import xyz.shurlin.demo2.ui.list.TestActivity;
 import xyz.shurlin.demo2.ui.list.wall.WallActivity;
 
@@ -73,5 +74,7 @@ public class HomeFragment extends Fragment {
         menuList.add(new ToolMenuItem("item6", "DL", "Digital Logics", R.drawable.book1, RCA_Activity.class));
         menuList.add(new ToolMenuItem("item7", "吃什么食", "434每日不知道吃什么", R.drawable.hotpot, EatShitActivity.class));
         menuList.add(new ToolMenuItem("item8", "校卡展示", "存储校卡图片方便进出校门", R.drawable.file_cb, ImageShowActivity.class));
+        menuList.add(new ToolMenuItem("item9", "手速测试器", "看谁更快", R.drawable.file_cb, SpeedTestActivity.class));
+
     }
 }
