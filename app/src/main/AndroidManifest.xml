@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -18,6 +18,12 @@
         android:theme="@style/Theme.Demo2"
         tools:ignore="ObsoleteSdkInt"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.list.ImageShowActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.list.GuideActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.list.EatShitActivity"
             android:exported="false" />
@@ -47,11 +53,11 @@
             android:name=".ui.list.TestActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.main.SplashActivity"
-            android:exported="false"/>
-        <activity
             android:name=".ui.main.MainActivity"
-            android:exported="true" >
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
