@@ -1,10 +1,7 @@
 package xyz.shurlin.demo2.network;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.Headers;
-import retrofit2.http.POST;
+import retrofit2.http.*;
 import xyz.shurlin.demo2.data.network.*;
 
 public interface ApiService {
@@ -22,4 +19,18 @@ public interface ApiService {
             "Content-Type: application/json"
     })
     Call<RegisterResponse> register(@Body RegisterRequest request);
+
+
+    @GET("/wall_data/get")
+    Call<PageResponse<WallFetchResponse>> list(
+            @Query("page") int page,
+            @Query("size") int size
+    );
+
+    @GET("/wall_data/get/{id}")
+    Call<WallFetchResponse> fetch(@Path("id") long id);
+
+    @POST("/wall_data/create")
+    Call<WallCreateResponse> create(@Body WallCreateRequest request);
+
 }

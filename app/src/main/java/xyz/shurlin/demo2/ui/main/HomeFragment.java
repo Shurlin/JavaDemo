@@ -6,10 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,13 +18,11 @@ import java.util.List;
 
 import xyz.shurlin.demo2.R;
 import xyz.shurlin.demo2.data.ToolMenuItem;
-import xyz.shurlin.demo2.ui.list.DarkReaderActivity;
 import xyz.shurlin.demo2.ui.list.DigitalLogic.RCA_Activity;
 import xyz.shurlin.demo2.ui.list.EatShitActivity;
 import xyz.shurlin.demo2.ui.list.LouderActivity;
 import xyz.shurlin.demo2.ui.list.TestActivity;
-import xyz.shurlin.demo2.ui.list.WallActivity;
-import xyz.shurlin.demo2.ui.list.snack.SnackStreetActivity;
+import xyz.shurlin.demo2.ui.list.wall.WallActivity;
 
 public class HomeFragment extends Fragment {
 

@@ -24,6 +24,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import xyz.shurlin.demo2.R;
 import xyz.shurlin.demo2.ui.login.LoginActivity;
+import xyz.shurlin.demo2.utils.Constants;
 
 public class UserFragment extends Fragment {
 
@@ -56,6 +57,8 @@ public class UserFragment extends Fragment {
         tvDisplayName = view.findViewById(R.id.tvDisplayName);
         tvEmail = view.findViewById(R.id.tvEmail);
         btnLogout = view.findViewById(R.id.btnLogout);
+        TextView versionTextView = view.findViewById(R.id.tvVersion);
+        versionTextView.setText("@Shurlin "+ Constants.version);
 
         updateDisplay();
 

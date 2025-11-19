@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="24dp"
-            android:hint="用户名"
+            android:hint="用户名（请输入英文和数字）"
             android:inputType="text"
             android:padding="12dp" />
 

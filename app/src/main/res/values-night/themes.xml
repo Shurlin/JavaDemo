@@ -5,6 +5,7 @@
         <item name="colorPrimaryVariant">@color/black</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorOnPrimarySurface">#CCC</item>
+        <item name="colorOnBackground">#222</item>
         <item name="colorPrimaryDark">#000</item>
 
     </style>
