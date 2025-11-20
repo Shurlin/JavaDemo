@@ -77,10 +77,10 @@ public class HomeFragment extends Fragment {
 //        menuList.add(new ToolMenuItem("item3", "小吃街", "小吃街导航与评论", R.drawable.lollipop, SnackStreetActivity.class));
         menuList.add(new ToolMenuItem("item4", "看看谁更吵", "分贝测试器——klf不要再吵了", R.drawable.speak, LouderActivity.class));
 //        menuList.add(new ToolMenuItem("item5", "暗黑阅读器", "手指不放在屏幕上屏幕就会变黑", R.drawable.book1, DarkReaderActivity.class));
-        menuList.add(new ToolMenuItem("item6", "DL", "Digital Logics", R.drawable.book1, RCA_Activity.class));
+        menuList.add(new ToolMenuItem("item6", "Digital Logics", "数字逻辑学习", R.drawable.cpu, RCA_Activity.class));
         menuList.add(new ToolMenuItem("item7", "吃什么食", "434每日不知道吃什么", R.drawable.hotpot, EatShitActivity.class));
-        menuList.add(new ToolMenuItem("item8", "校卡展示", "存储校卡图片方便进出校门", R.drawable.file_cb, ImageShowActivity.class));
-        menuList.add(new ToolMenuItem("item9", "手速测试器", "看谁更快", R.drawable.file_cb, SpeedTestActivity.class));
+        menuList.add(new ToolMenuItem("item8", "校卡展示", "存储校卡图片方便进出校门", R.drawable.id_card, ImageShowActivity.class));
+        menuList.add(new ToolMenuItem("item9", "手速测试器", "看谁更快", R.drawable.click, SpeedTestActivity.class));
 
     }
 
