@@ -47,19 +47,19 @@ public class EatShitActivity extends AppCompatActivity {
 
         Button button = findViewById(R.id.buttonEatShit);
         TextView textView = findViewById(R.id.eatShitRes);
-        button.setOnClickListener(v ->{
+        button.setOnClickListener(v -> {
             ArrayList<String> options = new ArrayList<>();
             StringBuilder prefs = new StringBuilder();
-            for (CanteenItem item: items){
-                if (item.checked){
+            for (CanteenItem item : items) {
+                if (item.checked) {
                     options.add(item.text);
                     prefs.append("*");
-                }else{
+                } else {
                     prefs.append("_");
                 }
             }
             sp.edit().putString("pref", prefs.toString()).apply();
-            if (!options.isEmpty()){
+            if (!options.isEmpty()) {
                 Random random = new Random();
                 textView.setText(options.get(random.nextInt(options.size())));
             }
@@ -67,26 +67,34 @@ public class EatShitActivity extends AppCompatActivity {
         });
     }
 
-    private static ArrayList<CanteenItem> createItems(SharedPreferences sp){
-        int size = 15, i=0;
-        String pref = sp.getString("pref", "*".repeat(size));
+    private static ArrayList<CanteenItem> createItems(SharedPreferences sp) {
+        String[] canteens = new String[]{
+                "八分饱-美食精选",
+                "八分饱-麻辣烫",
+                "八分饱-煎饼侠",
+                "八分饱-照烧铁板",
+                "八分饱-南粉北面",
+                "八分饱-烧腊",
+                "八分饱-自选称重",
+                "曙光-烤盘饭",
+                "曙光-牛肉饭",
+                "曙光-西餐",
+                "袁庚-猪肚鸡",
+                "袁庚-唐厨一号小炒",
+                "先行-东北菜/湘菜",
+                "外面-拉面",
+                "外面-外卖"
+        };
+        int size = canteens.length;
+        String pref_ori = "*".repeat(size);
+
+        String pref = sp.getString("pref", pref_ori);
+        if (pref.length() != size)
+            pref = pref_ori;
 
         ArrayList<CanteenItem> items = new ArrayList<>();
-        items.add(new CanteenItem("八分饱-美食精选", pref.charAt(i++) == '*'));
-        items.add(new CanteenItem("八分饱-麻辣烫", pref.charAt(i++) == '*'));
-        items.add(new CanteenItem("八分饱-煎饼侠", pref.charAt(i++) == '*'));
-        items.add(new CanteenItem("八分饱-照烧铁板", pref.charAt(i++) == '*'));
-        items.add(new CanteenItem("八分饱-南粉北面", pref.charAt(i++) == '*'));
-        items.add(new CanteenItem("八分饱-烧腊", pref.charAt(i++) == '*'));
-        items.add(new CanteenItem("八分饱-自选称重", pref.charAt(i++) == '*'));
-        items.add(new CanteenItem("曙光-烤盘饭", pref.charAt(i++) == '*'));
-        items.add(new CanteenItem("曙光-牛肉饭", pref.charAt(i++) == '*'));
-        items.add(new CanteenItem("曙光-西餐", pref.charAt(i++) == '*'));
-        items.add(new CanteenItem("袁庚-猪肚鸡", pref.charAt(i++) == '*'));
-        items.add(new CanteenItem("袁庚-唐厨一号小炒", pref.charAt(i++) == '*'));
-        items.add(new CanteenItem("先行-东北菜/湘菜", pref.charAt(i++) == '*'));
-        items.add(new CanteenItem("外面-拉面", pref.charAt(i++) == '*'));
-        items.add(new CanteenItem("外面-外卖", pref.charAt(i++) == '*'));
+        for (int i = 0; i < size; i++)
+            items.add(new CanteenItem(canteens[i], pref.charAt(i) == '*'));
         return items;
     }
 
