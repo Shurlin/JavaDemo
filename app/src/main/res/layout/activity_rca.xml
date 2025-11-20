@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:title="Digital Logic"
+        app:title="串行进位全加法器（RCA）原理"
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="center"/>
 
