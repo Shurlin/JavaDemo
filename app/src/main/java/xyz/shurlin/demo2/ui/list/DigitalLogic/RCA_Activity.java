@@ -17,6 +17,7 @@ public class RCA_Activity extends AppCompatActivity {
     private ImageView imageView;
     private Button prevButton;  // 上一页按钮
     private Button nextButton;  // 下一页按钮
+    private Button firstButton;
     private int currentIndex = 0;
 
     // 图片资源ID数组
@@ -42,7 +43,7 @@ public class RCA_Activity extends AppCompatActivity {
             R.drawable.rca19,
             R.drawable.rca20,
             R.drawable.rca21,
-            R.drawable.rca22,
+            R.drawable.rca22
     };
 
     @Override
@@ -59,6 +60,7 @@ public class RCA_Activity extends AppCompatActivity {
         imageView = findViewById(R.id.imageView);
         prevButton = findViewById(R.id.prevButton);                  // 初始按钮
         nextButton = findViewById(R.id.nextButton);
+        firstButton = findViewById(R.id.firstButton);
 
         // 设置初始图片
         updateImage();
@@ -66,6 +68,7 @@ public class RCA_Activity extends AppCompatActivity {
         // 设置按钮点击事件
         prevButton.setOnClickListener(v -> showPrevImage());    // 点击上一页
         nextButton.setOnClickListener(v -> showNextImage());    // 点击下一页
+        firstButton.setOnClickListener(v -> showFirstImage());
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -84,9 +87,13 @@ public class RCA_Activity extends AppCompatActivity {
         if (currentIndex == 0) {                            // 如果是第一张图片，禁用"上一页"按钮
             prevButton.setEnabled(false);
             prevButton.setAlpha(0.5f);
+            firstButton.setEnabled(false);
+            firstButton.setAlpha(0.5f);
         } else {
             prevButton.setEnabled(true);
             prevButton.setAlpha(1.0f);
+            firstButton.setEnabled(true);
+            firstButton.setAlpha(1.0f);
         }
 
         if (currentIndex == imageResources.length - 1) {    // 如果是最后一张图片，禁用"下一页"按钮
@@ -110,6 +117,13 @@ public class RCA_Activity extends AppCompatActivity {
     private void showPrevImage() {
         if (currentIndex > 0) {
             currentIndex--;
+            updateImage();
+        }
+    }
+
+    private void showFirstImage() {
+        if (currentIndex > 0) {
+            currentIndex = 0;
             updateImage();
         }
     }

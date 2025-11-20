@@ -24,7 +24,7 @@
         android:layout_gravity="center"
         tools:src="@tools:sample/backgrounds/scenic"
         app:layout_constraintTop_toBottomOf="@id/toolbar_rca"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toTopOf="@id/firstButton"/>
 
     <Button
         android:id="@+id/nextButton"
@@ -46,5 +46,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@id/nextButton" />
 
+    <Button
+        android:id="@+id/firstButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="200dp"
+        android:layout_marginBottom="24dp"
+        android:text="返回首页"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/nextButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
