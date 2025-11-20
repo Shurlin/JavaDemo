@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +42,11 @@ public class HomeFragment extends Fragment {
         RecyclerView recycler = view.findViewById(R.id.recyclerTools);
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
         recycler.setLayoutManager(layoutManager);
+
+        SwipeRefreshLayout swipeRefreshLayout = requireActivity().findViewById(R.id.swipeHome);
+        swipeRefreshLayout.setOnChildScrollUpCallback((parent, child) ->
+                recycler.canScrollVertically(1) || recycler.canScrollVertically(-1));
+
 
         prepareMenu();
 
@@ -77,4 +83,5 @@ public class HomeFragment extends Fragment {
         menuList.add(new ToolMenuItem("item9", "手速测试器", "看谁更快", R.drawable.file_cb, SpeedTestActivity.class));
 
     }
+
 }

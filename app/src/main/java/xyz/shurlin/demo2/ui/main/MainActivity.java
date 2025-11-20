@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.io.IOException;
@@ -57,8 +58,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         statusDot = findViewById(R.id.server_status_dot);
-        swipeRefreshLayout = findViewById(R.id.swipe);
+        swipeRefreshLayout = findViewById(R.id.swipeHome);
         Fragment userFragment = getSupportFragmentManager().findFragmentById(R.id.user_fragment);
+
 
         swipeRefreshLayout.setOnRefreshListener(() -> {
             swipeRefreshLayout.setRefreshing(true);

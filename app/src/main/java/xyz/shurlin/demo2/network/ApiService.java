@@ -31,6 +31,10 @@ public interface ApiService {
     Call<WallFetchResponse> fetch(@Path("id") long id);
 
     @POST("/wall_data/create")
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
     Call<WallCreateResponse> create(@Body WallCreateRequest request);
 
 }
