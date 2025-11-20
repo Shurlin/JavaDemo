@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
 
         SwipeRefreshLayout swipeRefreshLayout = requireActivity().findViewById(R.id.swipeHome);
         swipeRefreshLayout.setOnChildScrollUpCallback((parent, child) ->
-                recycler.canScrollVertically(1) || recycler.canScrollVertically(-1));
+                 recycler.canScrollVertically(-1));
 
 
         prepareMenu();
