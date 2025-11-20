@@ -54,6 +54,13 @@
                 android:textColor="#666" />
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/star"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/star" />
+
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

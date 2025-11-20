@@ -1,6 +1,8 @@
 package xyz.shurlin.demo2.ui.main;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import xyz.shurlin.demo2.R;
 import xyz.shurlin.demo2.data.ToolMenuItem;
@@ -33,6 +36,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView recycler;
     private MenuAdapter adapter;
     private List<ToolMenuItem> menuList = new ArrayList<>();
+    private SharedPreferences preferences;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -71,16 +75,16 @@ public class HomeFragment extends Fragment {
     private void prepareMenu() {
         menuList.clear();
         // 各个栏目
-        menuList.add(new ToolMenuItem("item0", "使用指南", "初次使用请阅读指南", R.drawable.book1, GuideActivity.class));
-        menuList.add(new ToolMenuItem("item1", "cdc", "进来帮cd来c", R.drawable.feedback, TestActivity.class));
-        menuList.add(new ToolMenuItem("item2", "表白墙", "cd的表白墙", R.drawable.unlike, WallActivity.class));
-//        menuList.add(new ToolMenuItem("item3", "小吃街", "小吃街导航与评论", R.drawable.lollipop, SnackStreetActivity.class));
-        menuList.add(new ToolMenuItem("item4", "看看谁更吵", "分贝测试器——klf不要再吵了", R.drawable.speak, LouderActivity.class));
-//        menuList.add(new ToolMenuItem("item5", "暗黑阅读器", "手指不放在屏幕上屏幕就会变黑", R.drawable.book1, DarkReaderActivity.class));
-        menuList.add(new ToolMenuItem("item6", "RCA原理", "4位串行进位全加法器", R.drawable.cpu, RCA_Activity.class));
-        menuList.add(new ToolMenuItem("item7", "吃什么食", "434每日不知道吃什么", R.drawable.hotpot, EatShitActivity.class));
-        menuList.add(new ToolMenuItem("item8", "校卡展示", "存储校卡图片方便进出校门", R.drawable.id_card, ImageShowActivity.class));
-        menuList.add(new ToolMenuItem("item9", "手速测试器", "看谁更快", R.drawable.click, SpeedTestActivity.class));
+        menuList.add(new ToolMenuItem("i0", "使用指南", "初次使用请阅读指南", R.drawable.book1, GuideActivity.class));
+        menuList.add(new ToolMenuItem("i1", "cdc", "进来帮cd来c", R.drawable.feedback, TestActivity.class));
+        menuList.add(new ToolMenuItem("i2", "表白墙", "cd的表白墙", R.drawable.unlike, WallActivity.class));
+//        menuList.add(new ToolMenuItem("i3", "小吃街", "小吃街导航与评论", R.drawable.lollipop, SnackStreetActivity.class));
+        menuList.add(new ToolMenuItem("i4", "看看谁更吵", "分贝测试器——klf不要再吵了", R.drawable.speak, LouderActivity.class));
+//        menuList.add(new ToolMenuItem("i5", "暗黑阅读器", "手指不放在屏幕上屏幕就会变黑", R.drawable.book1, DarkReaderActivity.class));
+        menuList.add(new ToolMenuItem("i6", "RCA原理", "4位串行进位全加法器", R.drawable.cpu, RCA_Activity.class));
+        menuList.add(new ToolMenuItem("i7", "吃什么食", "434每日不知道吃什么", R.drawable.hotpot, EatShitActivity.class));
+        menuList.add(new ToolMenuItem("i8", "校卡展示", "存储校卡图片方便进出校门", R.drawable.id_card, ImageShowActivity.class));
+        menuList.add(new ToolMenuItem("i9", "手速测试器", "看谁更快", R.drawable.click, SpeedTestActivity.class));
 
     }
 
