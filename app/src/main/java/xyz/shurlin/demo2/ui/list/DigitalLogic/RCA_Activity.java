@@ -3,6 +3,7 @@ package xyz.shurlin.demo2.ui.list.DigitalLogic;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,9 @@ public class RCA_Activity extends AppCompatActivity {
     private Button nextButton;  // 下一页按钮
     private Button firstButton;
     private int currentIndex = 0;
+    private int currentPage;
+    private String page;
+    private TextView showPage;
 
     // 图片资源ID数组
     private int[] imageResources = {
@@ -61,6 +65,8 @@ public class RCA_Activity extends AppCompatActivity {
         prevButton = findViewById(R.id.prevButton);                  // 初始按钮
         nextButton = findViewById(R.id.nextButton);
         firstButton = findViewById(R.id.firstButton);
+        showPage = findViewById(R.id.pageView);
+        currentPage = currentIndex + 1;
 
         // 设置初始图片
         updateImage();
@@ -80,6 +86,7 @@ public class RCA_Activity extends AppCompatActivity {
     private void updateImage() {
         imageView.setImageResource(imageResources[currentIndex]);   // 设置当前图片
         updateButtonStates();                                       // 更新按钮状态
+        updatePage();
     }
 
     // 更新按钮状态的方法
@@ -103,6 +110,12 @@ public class RCA_Activity extends AppCompatActivity {
             nextButton.setEnabled(true);
             nextButton.setAlpha(1.0f);
         }
+    }
+
+    private void updatePage() {
+        currentPage = currentIndex + 1;
+        page = "第"+currentPage+"页/"+imageResources.length+"页";
+        showPage.setText(page);
     }
 
     // 显示下一张图片
