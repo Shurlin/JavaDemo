@@ -119,7 +119,7 @@ public class WallActivity extends AppCompatActivity {
         isRequestRunning = true;
 
         final int nextPage = currentPage + 1;
-        Call<PageResponse<WallFetchResponse>> call = api.list(currentPage, pageSize);
+        Call<PageResponse<WallFetchResponse>> call = api.list(nextPage, pageSize);
         call.enqueue(new Callback<PageResponse<WallFetchResponse>>() {
             @Override
             public void onResponse(Call<PageResponse<WallFetchResponse>> call, Response<PageResponse<WallFetchResponse>> response) {
@@ -129,7 +129,9 @@ public class WallActivity extends AppCompatActivity {
                     if (list != null && !list.isEmpty()) {
                         adapter.addData(list); //TODO unique
                         currentPage = nextPage;
+//                        Toast.makeText(WallActivity.this, String.valueOf(list.size()), Toast.LENGTH_SHORT).show();
                         if (list.size() < pageSize) {
+
                             isLastPage = true;
                         }
                     } else {
