@@ -57,6 +57,7 @@ public class RCA_Activity extends AppCompatActivity {
 
         // 导航栏注册
         Toolbar toolbar = findViewById(R.id.toolbar_rca);
+        toolbar.setTitleTextAppearance(this, R.style.ToolbarLongTitleAppearance);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
