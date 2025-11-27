@@ -11,7 +11,7 @@ android {
         minSdk = 31
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0"
+        versionName = "0.2.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -32,6 +32,25 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+    applicationVariants.all {
+        val variant = this
+        variant.outputs.all {
+            // cast 为 ApkVariantOutputImpl 才能设置文件名
+            val outputImpl = this as com.android.build.gradle.internal.api.ApkVariantOutputImpl
+
+            // app 名称（可自定义）
+            val appName = "cdcpp"
+
+            // 自动获取 versionName、versionCode、buildType
+            val vName = variant.versionName
+            val vCode = variant.versionCode
+            val bType = variant.buildType.name
+
+            outputImpl.outputFileName = "${appName}_v${vName}_${vCode}_${bType}.apk"
+        }
+    }
+
 }
 
 dependencies {

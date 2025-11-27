@@ -1,5 +1,7 @@
 package xyz.shurlin.demo2.network;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.*;
 import xyz.shurlin.demo2.data.network.*;
@@ -36,5 +38,11 @@ public interface ApiService {
             "Content-Type: application/json"
     })
     Call<WallCreateResponse> create(@Body WallCreateRequest request);
+
+    @POST("/game/speed_test/post")
+    Call<String> postRank(@Body SpeedRankPostRequest request);
+
+    @GET("/game/speed_test/get")
+    Call<List<SpeedRank>> listRank();
 
 }

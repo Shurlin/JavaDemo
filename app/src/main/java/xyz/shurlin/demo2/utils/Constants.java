@@ -5,5 +5,5 @@ public class Constants {
     public static final String server_ip_lan = "10.21.27.134";
     public static final String server_ip = server_ip_wireless;
 
-    public static final String version = "V0.2.2";
+    public static final String version = "V0.2.3";
 }
