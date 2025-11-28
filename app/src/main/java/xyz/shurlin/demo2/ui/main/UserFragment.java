@@ -5,6 +5,7 @@ import static android.app.Activity.RESULT_OK;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -58,7 +59,12 @@ public class UserFragment extends Fragment {
         tvEmail = view.findViewById(R.id.tvEmail);
         btnLogout = view.findViewById(R.id.btnLogout);
         TextView versionTextView = view.findViewById(R.id.tvVersion);
-        versionTextView.setText("@Shurlin "+ Constants.version);
+
+        try {
+            versionTextView.setText("@Shurlin "+ requireContext().getPackageManager().getPackageInfo(requireContext().getPackageName(), 0).versionName);
+        } catch (PackageManager.NameNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
         updateDisplay();
 

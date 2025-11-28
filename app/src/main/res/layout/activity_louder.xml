@@ -1,19 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/louder_main"
+    android:background="#000"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.list.LouderActivity">
 
-    <androidx.appcompat.widget.Toolbar
+    <!--androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_louder"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:title="看看谁更吵"
         app:titleTextColor="?attr/colorOnPrimary"
-        android:gravity="center"/>
-</LinearLayout>
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"/-->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/louder_vol"
+        android:text="0000"
+        android:textSize="30sp"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

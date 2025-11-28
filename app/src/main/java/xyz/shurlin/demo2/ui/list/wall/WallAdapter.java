@@ -42,7 +42,13 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.VH> {
         WallFetchResponse data = datas.get(position);
         holder.tvWallTitle.setText(data.getTitle());
         holder.tvWallTime.setText(data.getCreatedAt().replace('T', ' '));
-        holder.tvWallContent.setText(data.getContent());
+        if (data.getContent().length() > 128){
+            holder.tvWallContent.setText(data.getContent().substring(0, 128) + "...");
+        }else{
+            holder.tvWallContent.setText(data.getContent());
+        }
+
+
     }
 
     @Override

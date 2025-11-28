@@ -1,6 +1,8 @@
 package xyz.shurlin.demo2.ui.list;
 
 import android.os.Bundle;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +24,7 @@ public class GuideActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar_guide);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     @Override

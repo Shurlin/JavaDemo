@@ -11,7 +11,7 @@ android {
         minSdk = 31
         targetSdk = 34
         versionCode = 1
-        versionName = "0.2.3"
+        versionName = "0.2.8"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -44,10 +44,9 @@ android {
 
             // 自动获取 versionName、versionCode、buildType
             val vName = variant.versionName
-            val vCode = variant.versionCode
             val bType = variant.buildType.name
 
-            outputImpl.outputFileName = "${appName}_v${vName}_${vCode}_${bType}.apk"
+            outputImpl.outputFileName = "${appName}_v${vName}_${bType}.apk"
         }
     }
 
