@@ -48,4 +48,13 @@
         android:visibility="gone"
         android:id="@+id/rankSpeedTest"
         />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginTipsRank"
+        android:text="登录后可参与排名"
+        app:layout_constraintBottom_toTopOf="@id/rankSpeedTest"
+        android:visibility="gone"
+        android:gravity="center"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

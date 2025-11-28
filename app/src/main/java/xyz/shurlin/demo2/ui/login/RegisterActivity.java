@@ -75,7 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
             tips.setVisibility(View.VISIBLE);
             return;
         }
-        if (!email.contains("@") && !email.split("@")[1].contains(".")) {
+        if (!email.contains("@") || !email.split("@")[1].contains(".")) {
             tips.setText("请输入正确的邮箱格式");
             tips.setVisibility(View.VISIBLE);
             return;

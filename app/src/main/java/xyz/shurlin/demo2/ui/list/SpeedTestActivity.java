@@ -38,16 +38,19 @@ public class SpeedTestActivity extends AppCompatActivity {
     private ApiService api;
     private RecyclerView recyclerView;
     private RankAdapter rankAdapter;
+    private TextView txtStatus;
+    private TextView loginTips;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speed_test);
 
-        TextView txtStatus = findViewById(R.id.txt_status);
+        txtStatus = findViewById(R.id.txt_status);
         Button btnStart = findViewById(R.id.btn_start_test);
         Button btnClick = findViewById(R.id.btn_click_area);
         btnClick.setEnabled(false);
+        loginTips = findViewById(R.id.loginTipsRank);
 
         rankAdapter = new RankAdapter();
         recyclerView = findViewById(R.id.rankSpeedTest);
@@ -128,6 +131,7 @@ public class SpeedTestActivity extends AppCompatActivity {
             });
         } else {
             Toast.makeText(SpeedTestActivity.this, "登录后可参与排名", Toast.LENGTH_SHORT).show();
+            loginTips.setVisibility(View.VISIBLE);
         }
     }
 

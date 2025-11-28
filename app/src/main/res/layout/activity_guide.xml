@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="    主界面右上角小圆点，红色表示服务器未连接，绿色表示已连接，需使用学校网方可连接。\n    连接后方可使用注册登录、表白墙等功能。"
+            android:text="    主界面右上角小圆点，红色表示服务器未连接，绿色表示已连接，需使用学校网方可连接。\n    连接后方可使用注册登录、表白墙、排行榜等功能。"
             android:textSize="16sp" />
         <TextView
             android:layout_width="match_parent"
@@ -48,6 +48,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="制作人：GarayShurlin、1oty、DeachBeacon\napp项目代码：https://github.com/Shurlin/JavaDemo"
+            android:textSize="16sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="报告bug、联系开启服务器：加微信shurlin345"
             android:textSize="16sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
