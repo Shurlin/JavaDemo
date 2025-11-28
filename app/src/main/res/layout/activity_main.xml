@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:backgroundTint="?attr/colorPrimary"
-        app:title="Shurlin Toolbox"
+        app:title="434's Toolbox"
         app:titleTextColor="@android:color/white">
 
         <FrameLayout
