@@ -77,12 +77,18 @@
             android:text="设置"
             android:textSize="16sp" />
 
-        <!-- 功能按钮，例如登出 -->
         <Button
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="登出"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnCheckUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="检查更新"
             android:textSize="16sp" />
 
         <TextView

@@ -2,9 +2,11 @@ package xyz.shurlin.demo2.network;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.*;
 import xyz.shurlin.demo2.data.network.*;
+import xyz.shurlin.demo2.data.network.chess.ChessStateDto;
 
 public interface ApiService {
 
@@ -44,5 +46,18 @@ public interface ApiService {
 
     @GET("/game/speed_test/get")
     Call<List<SpeedRank>> listRank();
+
+    @GET("/update/version")
+    Call<String> getLatestVersion();
+
+    @Streaming
+    @GET("/update/download")
+    Call<ResponseBody> downloadApk();
+
+    @GET("/game/chess/listRooms")
+    Call<List<Long>> listChessRooms();
+
+    @GET("/game/chess/{gameId}/board")
+    Call<ChessStateDto> getChessBoard(@Path("gameId") long gameId);
 
 }

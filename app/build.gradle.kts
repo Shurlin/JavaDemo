@@ -11,7 +11,7 @@ android {
         minSdk = 31
         targetSdk = 34
         versionCode = 1
-        versionName = "0.2.8"
+        versionName = "0.3.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -63,6 +63,8 @@ dependencies {
     implementation(libs.fragment)
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
+    implementation(libs.retrofit.scalars)
+    implementation(libs.retrofit.moshi)
     implementation(libs.gson)
     implementation(libs.okhttp)
     implementation(libs.annotation)

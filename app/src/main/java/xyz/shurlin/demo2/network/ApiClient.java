@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import okhttp3.OkHttpClient;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 import xyz.shurlin.demo2.utils.Constants;
 
 public class ApiClient {
@@ -19,6 +20,7 @@ public class ApiClient {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .client(baseClient)
+                    .addConverterFactory(ScalarsConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 

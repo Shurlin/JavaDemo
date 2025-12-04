@@ -1,6 +1,5 @@
 package xyz.shurlin.demo2.ui.main;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import xyz.shurlin.demo2.R;
 import xyz.shurlin.demo2.data.ToolMenuItem;
@@ -27,7 +25,8 @@ import xyz.shurlin.demo2.ui.list.EatShitActivity;
 import xyz.shurlin.demo2.ui.list.GuideActivity;
 import xyz.shurlin.demo2.ui.list.ImageShowActivity;
 import xyz.shurlin.demo2.ui.list.LouderActivity;
-import xyz.shurlin.demo2.ui.list.OnlineChessActivity;
+import xyz.shurlin.demo2.ui.list.chess.ChessRoomActivity;
+import xyz.shurlin.demo2.ui.list.chess.OnlineChessActivity;
 import xyz.shurlin.demo2.ui.list.SpeedTestActivity;
 import xyz.shurlin.demo2.ui.list.TestActivity;
 import xyz.shurlin.demo2.ui.list.wall.WallActivity;
@@ -86,7 +85,7 @@ public class HomeFragment extends Fragment {
         menuList.add(new ToolMenuItem("i7", "吃什么食", "434每日不知道吃什么", R.drawable.hotpot, EatShitActivity.class));
         menuList.add(new ToolMenuItem("i8", "校卡展示", "存储校卡图片方便进出校门", R.drawable.id_card, ImageShowActivity.class));
         menuList.add(new ToolMenuItem("i9", "手速测试器", "看谁更快", R.drawable.click, SpeedTestActivity.class));
-        menuList.add(new ToolMenuItem("i10", "在线象棋", "下象棋，咱俩下象棋去", R.drawable.chess, OnlineChessActivity.class));
+        menuList.add(new ToolMenuItem("i10", "在线象棋", "下象棋，咱俩下象棋去", R.drawable.chess, ChessRoomActivity.class));
 
     }
 
