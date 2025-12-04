@@ -45,7 +45,7 @@ public class GameWebSocketClient {
         this.wsUrl = wsUrl;
         this.callback = cb;
         this.client = new OkHttpClient.Builder()
-                .pingInterval(10, TimeUnit.SECONDS)
+                .pingInterval(30, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true)
                 .build();
     }

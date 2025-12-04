@@ -27,6 +27,7 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -45,7 +46,7 @@ import xyz.shurlin.demo2.ui.login.LoginActivity;
 import xyz.shurlin.demo2.utils.Constants;
 
 public class UserFragment extends Fragment {
-
+    private static final String TAG = "UserFragment";
     private ActivityResultLauncher<Intent> launcher;
     private ApiService apiService;
 
@@ -174,61 +175,70 @@ public class UserFragment extends Fragment {
 
     Thread getApkAndInstall(ResponseBody response) {
         return new Thread(() -> {
-            try {
-                File appExtDir = getContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-                if (appExtDir == null) {
-                    // 兜底到内部缓存目录
-                    appExtDir = getContext().getFilesDir();
-                }
+            // 目标目录：app 专属外部下载目录
+            File downloadsDir = getContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+            if (downloadsDir == null) downloadsDir = getContext().getFilesDir();
 
-                // 确保目录存在
-                if (!appExtDir.exists()) {
-                    boolean ok = appExtDir.mkdirs();
-                    Log.i(String.valueOf(this), "创建目录 " + appExtDir.getAbsolutePath() + " -> " + ok);
-                }
+            if (!downloadsDir.exists()) downloadsDir.mkdirs();
 
-                File latestApk = new File(appExtDir, "latest.apk"); // e.g. "latest.apk"
-                // 如果需要每次覆盖，先删除旧文件
-                if (latestApk.exists()) {
-                    latestApk.delete();
-                }
-                // 创建空文件（可选，因为 FileOutputStream 会创建），但我们可以返回 File 供后续写入
-                boolean created = latestApk.createNewFile();
-                Log.i(String.valueOf(this), "apk 文件: " + latestApk.getAbsolutePath() + " 已创建? " + created);
+            // 使用临时文件名 -> 完成后原子重命名
+            String finalName = "latest.apk"; // 或者使用 unique 名称 e.g. "latest-" + System.currentTimeMillis() + ".apk"
+            File tmpFile = new File(downloadsDir, finalName + ".tmp");
+            File finalFile = new File(downloadsDir, finalName);
 
-                InputStream is = response.byteStream();
-                FileOutputStream fos = new FileOutputStream(latestApk);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    byte[] apkData = is.readAllBytes();
-                    fos.write(apkData);
-                } else {
-                    byte[] buffer = new byte[4096];
-                    int len;
-                    while ((len = is.read(buffer)) != -1) {
-                        fos.write(buffer, 0, len);
-                    }
-                    is.close();
-                }
-                fos.flush();
-                fos.close();
-                requireActivity().runOnUiThread(() -> {
-                    Toast.makeText(getContext(), "下载完成，准备安装", Toast.LENGTH_SHORT).show();
+            // 删除残留 tmp
+            if (tmpFile.exists()) tmpFile.delete();
 
-                    //安装apk
-                    if (!latestApk.exists()) {
-                        Toast.makeText(getContext(), "安装包不存在", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    String authority = requireContext().getPackageName() + ".provider";
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setDataAndType(FileProvider.getUriForFile(requireContext(), authority, latestApk),
-                            "application/vnd.android.package-archive");
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    startActivity(intent);
-                });
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+            try (FileOutputStream fos = new FileOutputStream(tmpFile);
+                 BufferedOutputStream bos = new BufferedOutputStream(fos);
+                 InputStream is = response.byteStream()) {
+
+                byte[] buf = new byte[8192];
+                int len;
+                while ((len = is.read(buf)) != -1) {
+                    bos.write(buf, 0, len);
+                }
+                bos.flush();
+                fos.getFD().sync(); // 强制写入底层设备（尽可能保证数据已落盘）
+            } catch (IOException e) {
+                Log.e(TAG, "写入 tmp apk 失败: " + e.getMessage());
+                if (tmpFile.exists()) tmpFile.delete();
+                getActivity().runOnUiThread(() ->
+                        Toast.makeText(getContext(), "下载失败: " + e.getMessage(), Toast.LENGTH_LONG).show()
+                );
+                return;
             }
+
+            // 重命名 tmp -> final（若 final 存在先删除或备份）
+            if (finalFile.exists()) {
+                boolean del = finalFile.delete();
+                Log.i(TAG, "删除旧 finalFile: " + del);
+            }
+            boolean renamed = tmpFile.renameTo(finalFile);
+            Log.i(TAG, "tmp -> final 重命名: " + renamed + " finalPath=" + finalFile.getAbsolutePath());
+
+//            // 计算校验信息用于 debug（可选）
+//            String sha = sha256File(finalFile);
+//            Log.i(TAG, "APK 大小: " + finalFile.length() + " bytes, lastMod: " + finalFile.lastModified() + ", sha256: " + sha);
+
+            // 回到主线程触发安装
+            getActivity().runOnUiThread(() -> {
+                try {
+                    // authority 必须和 manifest 中 provider 的 authority 一致
+                    String authority = requireContext().getPackageName() + ".provider"; // e.g. xyz.shurlin.demo2.fileprovider
+                    Uri contentUri = FileProvider.getUriForFile(getContext(), authority, finalFile);
+
+                    Intent installIntent = new Intent(Intent.ACTION_VIEW);
+                    installIntent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+                    installIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    installIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                    startActivity(installIntent);
+                } catch (Exception e) {
+                    Toast.makeText(getContext(), "安装失败: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e(TAG, "安装异常", e);
+                }
+            });
         });
     }
 }
