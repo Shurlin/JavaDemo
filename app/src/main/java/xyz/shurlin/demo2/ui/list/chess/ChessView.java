@@ -17,17 +17,11 @@ import androidx.core.content.res.ResourcesCompat;
 import xyz.shurlin.demo2.R;
 import xyz.shurlin.demo2.data.network.chess.MovePayload;
 
-/**
- * 自定义 View：绘制中国象棋棋盘，并处理触摸选子/走子
- * <p>
- * 逻辑：
- * - board: pieces[9][10]，索引 (x:0..8, y:0..9)
- * - touch -> 计算格坐标 -> 选子/走子
- */
 public class ChessView extends View {
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Piece[][] pieces;
-    private boolean isRedTurn = true; // 当前轮到红方
+    boolean isRedTurn = true; // 当前轮到红方
+    boolean pickable = false; // 是否可选子
 
     private int selectedX = -1, selectedY = -1;// 选中格子
     private float boardLeft, boardTop, cellSize; // 棋盘参数
@@ -113,25 +107,26 @@ public class ChessView extends View {
     }
 
     private void drawPieces(Canvas c) {
-        // draw each piece if not null
         for (int x = 0; x < 9; x++) {
             for (int y = 0; y < 10; y++) {
                 Piece p = pieces[x][y];
                 if (p == null) continue;
+
                 float cx = boardLeft + x * cellSize;
                 float cy = boardTop + y * cellSize;
-                // outer circle
+
+                // 外圆
                 paint.setStyle(Paint.Style.STROKE);
                 paint.setStrokeWidth(cellSize * (p.isRed ? 0.06f : 0.12f));
                 paint.setColor(Color.BLACK);
                 c.drawCircle(cx, cy, radius - (p.isRed ? 0 : cellSize * 0.06f), paint);
 
-                // inner fill (red/black)
+                // 填充
                 paint.setStyle(Paint.Style.FILL);
                 paint.setColor(p.isRed ? Color.parseColor("#FF0000") : Color.parseColor("#D2B48C"));
                 c.drawCircle(cx, cy, radius - cellSize * (p.isRed ? 0.02f : 0.08f), paint);
 
-                // text
+                // 文字
                 paint.setColor(Color.BLACK);
                 paint.setTextSize(cellSize * 0.6f);
                 Rect r = new Rect();
@@ -162,9 +157,23 @@ public class ChessView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() != MotionEvent.ACTION_DOWN) return true;
         float tx = event.getX();
         float ty = event.getY();
+
+        if (ty < boardTop - cellSize || ty > boardTop + cellSize * 9 + cellSize) {
+            if (selectedX != -1){
+                selectedX = -1;
+                selectedY = -1;
+                invalidate();
+                return true;
+            }
+            return false;
+        }
+
+        if (event.getAction() != MotionEvent.ACTION_DOWN) return true;
+        if (!pickable) return true;
+
+
         int gx = Math.round((tx - boardLeft) / cellSize);
         int gy = Math.round((ty - boardTop) / cellSize);
 
@@ -210,9 +219,6 @@ public class ChessView extends View {
         if (!src.canMove(ox, oy, tx, ty, pieces)) {
             return false;
         }
-
-//        pieces[tx][ty] = src;
-//        pieces[ox][oy] = null;
 
         this.localMoveListener.onMove(ox, oy, tx, ty);
 

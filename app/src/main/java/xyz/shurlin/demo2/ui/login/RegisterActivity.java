@@ -70,6 +70,11 @@ public class RegisterActivity extends AppCompatActivity {
             tips.setVisibility(View.VISIBLE);
             return;
         }
+        if (username.length() > 12) {
+            tips.setText("用户名不能超过12个字符");
+            tips.setVisibility(View.VISIBLE);
+            return;
+        }
         if (email.isEmpty()) {
             tips.setText("请输入邮箱");
             tips.setVisibility(View.VISIBLE);

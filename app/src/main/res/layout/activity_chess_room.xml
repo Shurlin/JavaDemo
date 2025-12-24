@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.list.chess.ChessRoomActivity">
+    tools:context=".ui.list.chess.ChessRoomActivity"
+    android:orientation="vertical"
+    android:background="#D2B48C">
 
     <TextView
         android:layout_width="match_parent"
@@ -14,36 +16,64 @@
         android:id="@+id/tvChessGameId"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/black"
         android:gravity="center"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="100dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请先登录!"
+        android:id="@+id/tvTipLogin"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        android:textColor="#333"
+        app:layout_constraintTop_toBottomOf="@id/tvChessGameId"
+        android:gravity="center"
+        android:visibility="visible"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
         />
 
     <EditText
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:hint="房间号"
+        android:textColorHint="#555"
         android:gravity="center"
+        android:backgroundTint="@color/black"
         android:id="@+id/etChessGameId"
         android:inputType="number"
-        app:layout_constraintTop_toBottomOf="@id/tvChessGameId"
-        android:layout_marginTop="60dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"/>
 
     <Button
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:text="确定"
         android:id="@+id/btnCreateChessRoom"
-        app:layout_constraintTop_toBottomOf="@id/etChessGameId"
-        android:layout_marginTop="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
         />
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/srlChessHistory"
+        app:layout_constraintTop_toBottomOf="@id/btnCreateChessRoom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="30dp"
+        android:padding="8dp"
+        >
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rvChessHistory"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

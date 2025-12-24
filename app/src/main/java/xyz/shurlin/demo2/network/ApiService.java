@@ -5,6 +5,7 @@ import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.*;
+import xyz.shurlin.demo2.data.ChessHistoryItem;
 import xyz.shurlin.demo2.data.network.*;
 import xyz.shurlin.demo2.data.network.chess.ChessStateDto;
 
@@ -59,5 +60,8 @@ public interface ApiService {
 
     @GET("/game/chess/{gameId}/board")
     Call<ChessStateDto> getChessBoard(@Path("gameId") long gameId);
+
+    @GET("/game/chess/listHistory")
+    Call<List<ChessHistoryItem>> listChessHistory(@Query("username") String username);
 
 }

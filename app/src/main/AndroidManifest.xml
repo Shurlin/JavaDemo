@@ -43,13 +43,7 @@
             android:name=".ui.list.DigitalLogic.RCA_Activity"
             android:exported="false" />
         <activity
-            android:name=".ui.list.DarkReaderActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.list.LouderActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.list.snack.SnackStreetActivity"
             android:exported="false" />
         <activity
             android:name=".ui.list.wall.WallActivity"

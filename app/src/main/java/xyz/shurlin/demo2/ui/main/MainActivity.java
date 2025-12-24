@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
     void checkServer(Runnable onSuccess, Runnable onFailure) {
         PingService ping = ApiClient.getPingService();
         Call<Void> call = ping.pingServer();
+        Log.d(String.valueOf(MainActivity.this), call.request().url().toString());
 
         call.enqueue(new Callback<Void>() {
             @Override
@@ -119,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call<Void> call, Throwable t) {
                 runOnUiThread(() -> {
+                    Log.d("a", t.getMessage());
                     statusDot.setBackgroundResource(R.drawable.status_dot_off);
                     serverOn = false;
                     if (onFailure != null)

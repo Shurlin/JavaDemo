@@ -9,7 +9,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 import xyz.shurlin.demo2.utils.Constants;
 
 public class ApiClient {
-    private static final String BASE_URL = "http://" + Constants.server_ip + ":8080"; // 改为后端地址或 IP
+    private static final String BASE_URL = "http://" + Constants.SERVER_IP + ":8080"; // 改为后端地址或 IP
     private static ApiService apiService;
 
     public static ApiService getApiService() {
