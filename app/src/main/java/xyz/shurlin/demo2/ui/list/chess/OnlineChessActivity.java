@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -317,6 +318,7 @@ public class OnlineChessActivity extends AppCompatActivity {
         @Override
         public void run() {
             Log.i(TAG, "audio recording started");
+            audioRecord.startRecording();
             try {
                 // 包头
                 byte[] header1 = String.format("%04d", gameId).getBytes();
@@ -359,21 +361,27 @@ public class OnlineChessActivity extends AppCompatActivity {
                 }
                 audioTrack.play();
                 while (roomExists) {
-                    socket.receive(packet);
-
-                    int totalLen = packet.getLength();
-                    Log.i(TAG, "audio received:" + totalLen);
-                    if (totalLen <= 16) {
-                        continue; // 非法包
+                    try {
+                        socket.receive(packet); // 阻塞点
+                    } catch (SocketException e) {
+                        // ★ socket 被关闭时一定会走到这里
+                        Log.i(TAG, "socket closed, audio thread exiting");
+                        break;
                     }
 
+                    int totalLen = packet.getLength();
                     int audioLen = totalLen - 16;
                     byte[] audioData = new byte[audioLen];
-                    System.arraycopy(packet.getData(), 16, audioData, 0, audioLen);
 
-                    //如果静音 → 写“静音帧”
-                    if (!volumeEnabled) {
-                        // PCM16 静音就是 0
+
+                    if (volumeEnabled){
+                        Log.i(TAG, "audio received:" + totalLen);
+                        if (totalLen <= 16) {
+                            continue; // 非法包
+                        }
+                        System.arraycopy(packet.getData(), 16, audioData, 0, audioLen);
+                    }else {
+                        // 静音处理
                         for (int i = 0; i < audioLen; i++) {
                             audioData[i] = 0;
                         }
