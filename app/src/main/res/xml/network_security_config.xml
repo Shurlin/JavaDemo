@@ -4,6 +4,7 @@
         <!-- 改成你的后端域名或 IP（不要用 * 生产环境） -->
         <domain includeSubdomains="ture">10.21.148.239</domain>
         <domain includeSubdomains="true">10.21.24.32</domain>
+        <domain includeSubdomains="true">10.17.131.32</domain>
     </domain-config>
 
 </network-security-config>

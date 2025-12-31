@@ -1,0 +1,62 @@
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <xyz.shurlin.demo2.ui.list.simulator.DecisionTreeView
+            android:id="@+id/tree_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@android:color/transparent"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/left" />
+
+        <ImageButton
+            android:id="@+id/btnTreeList"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@android:color/transparent"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/column"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_gravity="end"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvGenerating"
+            android:text="生成中..."
+            android:textSize="16sp"
+            android:textColor="#050"
+            android:layout_gravity="end"
+            android:layout_marginTop="56dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="gone"/>
+
+        <xyz.shurlin.demo2.ui.list.simulator.InputOverlayView
+            android:id="@+id/input_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_tree_list"
+        android:layout_width="220dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="@color/black" />
+</androidx.drawerlayout.widget.DrawerLayout>

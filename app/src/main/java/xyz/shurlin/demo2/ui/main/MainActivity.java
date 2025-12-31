@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "刷新成功", Toast.LENGTH_SHORT).show();
                 swipeRefreshLayout.setRefreshing(false);
             }, () -> {
-                Toast.makeText(MainActivity.this, "服务器未连接", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "服务器未连接，请开WIFI", Toast.LENGTH_SHORT).show();
                 swipeRefreshLayout.setRefreshing(false);
             });
 

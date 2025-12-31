@@ -8,6 +8,12 @@ import retrofit2.http.*;
 import xyz.shurlin.demo2.data.ChessHistoryItem;
 import xyz.shurlin.demo2.data.network.*;
 import xyz.shurlin.demo2.data.network.chess.ChessStateDto;
+import xyz.shurlin.demo2.data.network.decision_tree.DecisionTreeResponse;
+import xyz.shurlin.demo2.data.network.decision_tree.DecisionTreesResponse;
+import xyz.shurlin.demo2.data.network.decision_tree.NodeCreateRequest;
+import xyz.shurlin.demo2.data.network.decision_tree.NodeCreateResponse;
+import xyz.shurlin.demo2.data.network.decision_tree.TreeCreateRequest;
+import xyz.shurlin.demo2.data.network.decision_tree.TreeCreateResponse;
 
 public interface ApiService {
 
@@ -63,5 +69,21 @@ public interface ApiService {
 
     @GET("/game/chess/listHistory")
     Call<List<ChessHistoryItem>> listChessHistory(@Query("username") String username);
+
+    @POST("/ai/chat")
+    Call<ChatResponse> chat(@Body ChatRequest request);
+
+    @GET("/ai/dec_tree/all")
+    Call<DecisionTreesResponse> getAllTree(@Query("username") String username);
+
+    @GET("/ai/dec_tree/{treeId}")
+    @Headers("Accept: application/json")
+    Call<DecisionTreeResponse> getDecisionTree(@Path("treeId") Long treeId);
+
+    @POST("/ai/dec_tree/create_tree")
+    Call<TreeCreateResponse> createTree(@Body TreeCreateRequest req);
+
+    @POST("/ai/dec_tree/create_node")
+    Call<NodeCreateResponse> createNode(@Body NodeCreateRequest req);
 
 }

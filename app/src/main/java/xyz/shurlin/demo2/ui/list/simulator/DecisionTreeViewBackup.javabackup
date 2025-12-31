@@ -1,0 +1,368 @@
+package xyz.shurlin.demo2.ui.list.simulator;
+
+import static android.view.MotionEvent.*;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.text.Layout;
+import android.text.StaticLayout;
+import android.text.TextPaint;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
+
+import xyz.shurlin.demo2.data.network.decision_tree.DecisionNode;
+import xyz.shurlin.demo2.data.network.decision_tree.DecisionTreeResponse;
+
+public class DecisionTreeView extends View {
+
+    private final Paint nodePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint linePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+    private static final float NODE_WIDTH = 400;
+    private static final float NODE_HEIGHT = 160;
+    private static final float H_GAP = 180;
+    private static final float V_GAP = 120;
+    private static final float TOUCH_SLOP = 20f;
+
+    private float offsetX = 0;
+    private float offsetY = 0;
+    private float lastX, lastY;
+    private float downX, downY;
+    private boolean isDragging;
+
+    private DecisionTreeResponse tree;
+    private DecisionNode selectedNode;
+
+    private Runnable onAddRootClick;
+    private Consumer<Long> onAddNodeClick;
+    private Runnable onEditBackground;
+    private Runnable closeInput;
+    private boolean inputOpen = false;
+
+    private final List<HitArea> hitAreas = new ArrayList<>();
+
+    public DecisionTreeView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        textPaint.setTextSize(36f);
+        linePaint.setStrokeWidth(4f);
+    }
+
+    public void showCreateRootHint() {
+        tree = null;
+        invalidate();
+    }
+
+    public void loadTree(DecisionTreeResponse tree) {
+        this.tree = tree;
+        offsetX = 0;
+        offsetY = 0;
+        invalidate();
+    }
+
+    public void addNode(DecisionNode node) {
+        tree.addNode(node);
+        invalidate();
+    }
+
+    public void updateBackground(String background) {
+        tree.setBackground(background);
+        invalidate();
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        if (tree == null) {
+            drawCreateRoot(canvas);
+        } else {
+            drawTree(canvas);
+        }
+    }
+
+    private void drawCreateRoot(Canvas canvas) {
+        float cx = getWidth() / 2f;
+        float cy = getHeight() / 2f;
+
+        nodePaint.setColor(Color.LTGRAY);
+        canvas.drawCircle(cx, cy, 80, nodePaint);
+
+        textPaint.setTextAlign(Paint.Align.CENTER);
+        canvas.drawText("+", cx, cy + 15, textPaint);
+
+        RectF rect = new RectF(
+                cx - 80,
+                cy - 80,
+                cx + 80,
+                cy + 80
+        );
+
+        hitAreas.add(new HitArea() {{
+            this.curRect = rect;
+            this.curNode = null;
+            this.isAddButton = false;
+            this.depth = -1;
+        }});
+
+
+    }
+
+    private void drawTree(Canvas canvas) {
+        hitAreas.clear();
+
+        canvas.save();
+        canvas.translate(offsetX, offsetY);
+
+//        Log.d("DecisionTreeView");
+        Map<Long, List<DecisionNode>> childrenMap = buildChildrenMap();
+
+        float rootX = 200;
+        float rootY = getHeight() / 2f;
+
+        drawRoot(canvas, rootX, rootY);
+
+        List<DecisionNode> roots = childrenMap.get(-1L);
+        if (roots != null) {
+            drawChildren(canvas, roots, rootX + NODE_WIDTH + H_GAP, rootY, childrenMap);
+        }
+
+        canvas.restore();
+    }
+
+
+    private void drawRoot(Canvas canvas, float x, float y) {
+        RectF rect = new RectF(
+                x - NODE_WIDTH / 2,
+                y - NODE_HEIGHT / 2,
+                x + NODE_WIDTH / 2,
+                y + NODE_HEIGHT / 2
+        );
+
+        nodePaint.setColor(Color.parseColor("#E3F2FD"));
+        canvas.drawRoundRect(rect, 20, 20, nodePaint);
+
+        drawMultilineText(canvas, tree.getBackground(), rect);
+
+        hitAreas.add(new HitArea() {{
+            this.curRect = rect;
+            this.curNode = null;
+            this.isAddButton = false;
+            this.depth = 0;
+        }});
+
+        // + 按钮
+        RectF plus = new RectF(
+                x + NODE_WIDTH / 2 + 10,
+                y - 30,
+                x + NODE_WIDTH / 2 + 70,
+                y + 30
+        );
+        canvas.drawOval(plus, nodePaint);
+        canvas.drawText("+", plus.centerX() - 10, plus.centerY() + 12, textPaint);
+
+        hitAreas.add(new HitArea() {{
+            this.curRect = plus;
+            this.curNode = null;
+            this.isAddButton = true;
+            this.depth = 1;
+        }});
+    }
+
+
+    private void drawChildren(Canvas canvas, List<DecisionNode> nodes, float x, float centerY, Map<Long, List<DecisionNode>> childrenMap) {
+        float totalHeight = nodes.size() * NODE_HEIGHT + (nodes.size() - 1) * V_GAP;
+        float startY = centerY - totalHeight / 2f;
+
+        Log.d("DecisionTreeView", "Drawing " + nodes.size() + " children at x=" + x + ", centerY=" + centerY);
+        for (int i = 0; i < nodes.size(); i++) {
+            DecisionNode node = nodes.get(i);
+            float y = startY + i * (NODE_HEIGHT + V_GAP) + NODE_HEIGHT / 2f;
+
+            // 连接线
+            canvas.drawLine(x - H_GAP + NODE_WIDTH, centerY, x - H_GAP, y, linePaint);
+
+            drawNode(canvas, node, x, y);
+
+            List<DecisionNode> children = childrenMap.get(node.getNodeId());
+            Log.d("DecisionTreeView", "Node " + node.getNodeId() + " has children: " + (children != null ? children.size() : 0));
+            if (children != null) {
+                drawChildren(canvas, children, x + NODE_WIDTH + H_GAP, y, childrenMap);
+            }
+        }
+    }
+
+    private void drawNode(Canvas canvas, DecisionNode node, float x, float y) {
+        RectF rect = new RectF(
+                x - NODE_WIDTH / 2,
+                y - NODE_HEIGHT / 2,
+                x + NODE_WIDTH / 2,
+                y + NODE_HEIGHT / 2
+        );
+
+        nodePaint.setColor(
+                node == selectedNode ? Color.parseColor("#FFF3E0") : Color.WHITE
+        );
+        canvas.drawRoundRect(rect, 20, 20, nodePaint);
+
+        drawMultilineText(canvas, node.getDecisionText(), rect);
+
+        hitAreas.add(new HitArea() {{
+            this.curRect = rect;
+            this.curNode = node;
+            this.isAddButton = false;
+            this.depth = node.getDepth();
+        }});
+
+        RectF plus = new RectF(
+                x + NODE_WIDTH / 2 + 10,
+                y - 30,
+                x + NODE_WIDTH / 2 + 70,
+                y + 30
+        );
+        canvas.drawOval(plus, nodePaint);
+        canvas.drawText("+", plus.centerX() - 10, plus.centerY() + 12, textPaint);
+
+        hitAreas.add(new HitArea() {{
+            this.curRect = plus;
+            this.curNode = node;
+            this.isAddButton = true;
+            this.depth = node.getDepth() + 1;
+        }});
+    }
+
+
+    private Map<Long, List<DecisionNode>> buildChildrenMap() {
+        Map<Long, List<DecisionNode>> map = new HashMap<>();
+        if (tree == null || tree.getNodes() == null || tree.getNodes().isEmpty()) return map;
+        for (DecisionNode n : tree.getNodes()) {
+            Log.d("DecisionTreeView", "Node " + n.getNodeId() + " parent: " + n.getParentNodeId() + " simulation: " + n.getSimulation());
+            map.computeIfAbsent(n.getParentNodeId(), k -> new ArrayList<>()).add(n);
+        }
+        return map;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        Log.d("DecisionTreeView", "onTouchEvent: " + event.getAction());
+        switch (event.getAction()) {
+            case ACTION_DOWN:
+                downX = lastX = event.getX();
+                downY = lastY = event.getY();
+                isDragging = false;
+                return true;
+
+            case ACTION_MOVE:
+                float dx = event.getX() - lastX;
+                float dy = event.getY() - lastY;
+
+                if (Math.hypot(event.getX() - downX, event.getY() - downY) > TOUCH_SLOP) {
+                    Log.d("DecisionTreeView", "Start dragging");
+                    isDragging = true;
+                }
+
+                offsetX += dx;
+                offsetY += dy;
+                lastX = event.getX();
+                lastY = event.getY();
+                invalidate();
+                return true;
+
+            case ACTION_UP:
+                if (!isDragging) {
+                    Log.d("DecisionTreeView", "Clicked on " + event.getX() + "," + event.getY());
+                    return handleClick(event.getX(), event.getY());
+                }
+                return false;
+
+        }
+        return super.onTouchEvent(event);
+    }
+
+    private boolean handleClick(float rawX, float rawY) {
+        float x = rawX - offsetX;
+        float y = rawY - offsetY;
+
+        if (inputOpen && rawY < getHeight() - 150) // TODO 输入框高度
+        {
+            inputOpen = false;
+            if (closeInput != null) closeInput.run();
+            return true;
+        }
+
+        for (HitArea area : hitAreas) {
+            Log.d("DecisionTreeView", "Clicked on " + x + "," + y + "area: " + (area.isAddButton ? "Add Button" : "Node"));
+            if (area.curRect.contains(x, y)) {
+                if (area.depth == -1) {
+                    if (onAddRootClick != null) onAddRootClick.run();
+                } else if (area.isAddButton) {
+                    if (onAddNodeClick != null) {
+                        onAddNodeClick.accept(area.curNode == null ? -1L : area.curNode.getNodeId());
+                    }
+                } else {
+                    selectedNode = area.curNode;
+                    invalidate();
+                    if (area.curNode == null && onEditBackground != null) {
+                        onEditBackground.run();
+                    }
+                }
+                return true;
+            }
+        }
+        Log.d("DecisionTreeView", "No hit area found for " + x + "," + y);
+        return false;
+    }
+
+    private void drawMultilineText(Canvas canvas, String text, RectF rect) {
+        TextPaint tp = new TextPaint(textPaint);
+        int width = (int) (rect.width() - 40);
+
+        StaticLayout layout = StaticLayout.Builder
+                .obtain(text, 0, text.length(), tp, width)
+                .setAlignment(Layout.Alignment.ALIGN_NORMAL)
+                .setLineSpacing(6f, 1f)
+                .build();
+
+        canvas.save();
+        canvas.translate(rect.left + 20, rect.top + 20);
+        layout.draw(canvas);
+        canvas.restore();
+    }
+
+
+    // callback setters
+    public void setOnAddRootClick(Runnable r) {
+        this.onAddRootClick = r;
+    }
+
+    public void setOnAddNodeClick(Consumer<Long> c) {
+        this.onAddNodeClick = c;
+    }
+
+    public void setOnEditBackground(Runnable r) {
+        this.onEditBackground = r;
+    }
+
+    public void setCloseInput(Runnable r) {
+        this.closeInput = r;
+    }
+
+    private static class HitArea {
+        RectF curRect;
+        DecisionNode curNode;   // null 表示 root
+        boolean isAddButton; // 是否是 + 号
+        int depth; // 节点深度
+    }
+
+}

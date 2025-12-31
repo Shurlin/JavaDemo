@@ -25,10 +25,12 @@ import xyz.shurlin.demo2.ui.list.EatShitActivity;
 import xyz.shurlin.demo2.ui.list.GuideActivity;
 import xyz.shurlin.demo2.ui.list.ImageShowActivity;
 import xyz.shurlin.demo2.ui.list.LouderActivity;
+import xyz.shurlin.demo2.ui.list.ai.AIChatActivity;
 import xyz.shurlin.demo2.ui.list.chess.ChessRoomActivity;
 import xyz.shurlin.demo2.ui.list.chess.OnlineChessActivity;
 import xyz.shurlin.demo2.ui.list.SpeedTestActivity;
 import xyz.shurlin.demo2.ui.list.TestActivity;
+import xyz.shurlin.demo2.ui.list.simulator.DecisionSimulatorActivity;
 import xyz.shurlin.demo2.ui.list.wall.WallActivity;
 
 public class HomeFragment extends Fragment {
@@ -86,6 +88,8 @@ public class HomeFragment extends Fragment {
         menuList.add(new ToolMenuItem("i8", "校卡展示", "存储校卡图片方便进出校门", R.drawable.id_card, ImageShowActivity.class));
         menuList.add(new ToolMenuItem("i9", "手速测试器", "看谁更快", R.drawable.click, SpeedTestActivity.class));
         menuList.add(new ToolMenuItem("i10", "在线象棋", "下象棋，咱俩下象棋去", R.drawable.chess, ChessRoomActivity.class));
+        menuList.add(new ToolMenuItem("i11", "AI聊天", "ai聊天测试", R.drawable.chat, AIChatActivity.class));
+        menuList.add(new ToolMenuItem("i12", "分手模拟器", "人生决策模拟器", R.drawable.chat, DecisionSimulatorActivity.class));
 
     }
 
